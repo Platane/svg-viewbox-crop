@@ -1,0 +1,22 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - uses: crazy-max/ghaction-github-pages@068e494
+        with:
+          target_branch: gh-pages
+          build_dir: .build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

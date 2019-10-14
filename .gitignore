@@ -1,0 +1,17 @@
+# OSX
+.DS_Store
+
+# IDE files
+.idea
+.vscode
+
+# node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# cache
+.jest-cache
+
+# build artefact
+.build
