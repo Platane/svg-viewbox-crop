@@ -20,7 +20,7 @@ const createConfig = mode => ({
     filename: "[name].[contenthash].js",
     chunkFilename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "../.build"),
-    publicPath: "/"
+    publicPath: "/svg-viewbox-crop/"
   },
   module: {
     rules: [
@@ -85,29 +85,6 @@ const createConfig = mode => ({
   ].filter(Boolean),
 
   devtool: mode === "production" ? "source-map" : false,
-
-  optimization: {
-    splitChunks: {
-      minChunks: 2,
-      chunks: "all",
-
-      cacheGroups: {
-        vendors: false,
-
-        /**
-         * this chunk contains the node_modules that we are not going to change any time soon
-         * and are most likely to be loaded on every page
-         */
-        vendor: {
-          name: "vendor",
-          chunks: "all",
-          test: /node_modules\/(react|react-dom|redux|react-redux|emotion|react-emotion|react-router|@emotion)\//,
-          priority: 20,
-          enforce: true
-        }
-      }
-    }
-  },
 
   /**
    * prevent webpack from giving warning about the bundle size
