@@ -13,7 +13,7 @@ export const stringifyViewBox = ({ x, y, width, height }: Box): string =>
  * given a command string, split each command
  */
 export const splitCommand = (text: string) => {
-  const commands = "hvascqmlz";
+  const commands = "hvascqtmlz";
   const c = commands + commands.toUpperCase();
   const re = new RegExp(`([${c}])([^${c}]*)`, "g");
 

@@ -2,6 +2,8 @@ export type Box = { x: number; y: number; width: number; height: number };
 
 /**
  * return an list of transform function to apply to each params for a given command
+ *
+ * https://www.w3.org/TR/SVG/paths.html#PathDataBNF
  */
 export const getTransformsForCommand = (command: string, arity: number) => {
   const tr = command === command.toLowerCase() ? relative : absolute;
@@ -18,6 +20,7 @@ export const getTransformsForCommand = (command: string, arity: number) => {
     case "s":
     case "c":
     case "q":
+    case "t":
     case "m":
     case "l":
       return Array.from({ length: Math.floor(arity / 2) * 2 }).map((_, i) =>
