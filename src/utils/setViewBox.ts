@@ -30,7 +30,7 @@ export const splitNumberParam = (text: string): number[] =>
   text
     .replace(/-/g, " -")
     .replace(/[ ,]+/g, " ")
-    .replace(/(\d\.\d+)\./g, (_, a) => a + " .")
+    .replace(/(\.\d+)\./g, (_, a) => a + " .")
     .trim()
     .split(" ")
     .map(x => parseFloat(x));

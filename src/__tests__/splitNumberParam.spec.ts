@@ -8,14 +8,21 @@ describe("splitNumberParam", () => {
       3,
       -56.1233
     ]);
-    expect(splitNumberParam("4,4,0,0, 1-4.86.6")).toEqual([
-      4,
-      4,
-      0,
-      0,
-      1,
-      -4.86,
-      0.6
-    ]);
   });
+
+  [
+    //
+    { str: "13", params: [13] },
+    { str: "13 24", params: [13, 24] },
+    { str: "13,24", params: [13, 24] },
+    { str: "13.24", params: [13.24] },
+    { str: "13-24", params: [13, -24] },
+    { str: "4.86.6", params: [4.86, 0.6] },
+    { str: ".86.6", params: [0.86, 0.6] },
+    { str: "-.86.6", params: [-0.86, 0.6] }
+  ].forEach(({ str, params }, i) =>
+    it(`parse "${str}"`, () => {
+      expect(splitNumberParam(str)).toEqual(params);
+    })
+  );
 });

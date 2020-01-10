@@ -10,12 +10,16 @@ export const getTransformsForCommand = (command: string, arity: number) => {
 
   switch (command.toLowerCase()) {
     case "h":
-      return Array.from({ length: arity }).map(() => tr.y);
-    case "v":
       return Array.from({ length: arity }).map(() => tr.x);
+    case "v":
+      return Array.from({ length: arity }).map(() => tr.y);
 
     case "a":
-      return [relative.x, relative.y, pass, pass, pass, tr.x, tr.y];
+      return [].concat(
+        ...Array.from({ length: Math.floor(arity / 7) }).map(
+          () => [relative.x, relative.y, pass, pass, pass, tr.x, tr.y] as any
+        )
+      );
 
     case "s":
     case "c":
