@@ -20,7 +20,7 @@ const createConfig = mode => ({
     filename: "[name].[contenthash].js",
     chunkFilename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "../.build"),
-    publicPath: "/svg-viewbox-crop/"
+    publicPath: mode === "production" ? "/svg-viewbox-crop/" : "/"
   },
   module: {
     rules: [
@@ -31,6 +31,9 @@ const createConfig = mode => ({
         options: { rootMode: "upward" }
       }
     ]
+  },
+  node: {
+    fs: "empty"
   },
 
   plugins: [

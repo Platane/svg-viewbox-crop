@@ -1,8 +1,10 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import styled from "@emotion/styled";
 import { AspectRatio } from "./AspectRatio";
 import { Canvas } from "./Canvas";
 import { parseViewBox, setViewBox } from "../utils/setViewBox";
+import { Checkbox } from "./Checkbox";
+import { minifyPath } from "../utils/minifyPath";
 
 export const App = () => {
   const [originPath, setOriginPath] = useState(
@@ -10,6 +12,8 @@ export const App = () => {
   );
   const [originViewbox, setOriginViewbox] = useState("0 0 57.947 57.947");
   const [targetViewbox, setTargetViewbox] = useState("0 0 1 1");
+
+  const [minify, setMinify] = useState(false);
 
   const targetPath = useMemo(
     () =>
@@ -20,6 +24,12 @@ export const App = () => {
       ),
     [originPath, originViewbox, targetViewbox]
   );
+
+  const [targetPathS, setTargetPathS] = useState(targetPath);
+  useEffect(() => {
+    if (minify) minifyPath(targetPath).then(setTargetPathS);
+    else setTargetPathS(targetPath);
+  }, [targetPath, minify]);
 
   return (
     <Container>
@@ -42,7 +52,7 @@ export const App = () => {
 
       <Box>
         <CanvasViewBox ratio={1 / 1}>
-          <CanvasView viewBox={targetViewbox} path={targetPath} />
+          <CanvasView viewBox={targetViewbox} path={targetPathS} />
         </CanvasViewBox>
         <Input
           type="text"
@@ -51,11 +61,16 @@ export const App = () => {
           placeholder="target viewBox"
         />
         <LargeInput
-          value={targetPath}
+          value={targetPathS}
           onFocus={e => e.target.focus()}
           placeholder="result path"
           readOnly
         />
+
+        <div>
+          <Checkbox value={minify} onChange={setMinify} />{" "}
+          <label>minify with svgo</label>
+        </div>
       </Box>
     </Container>
   );
