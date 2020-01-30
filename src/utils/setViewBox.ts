@@ -1,4 +1,8 @@
-import { Box, getTransformsForCommand } from "./getTransformsForCommand";
+import {
+  Box,
+  getTransformsForCommand,
+  unGroupCommand
+} from "./getTransformsForCommand";
 
 const round = x => Math.round(x * 10000) / 10000;
 
@@ -27,22 +31,37 @@ export const splitCommand = (text: string) => {
  * parse a list of number as string
  */
 export const splitNumberParam = (text: string): number[] =>
-  text
+  splitDot(text)
     .replace(/-/g, " -")
     .replace(/[ ,]+/g, " ")
-    .replace(/(\.\d+)\./g, (_, a) => a + " .")
-    .trim()
     .split(" ")
+    .map(x => x.trim())
+    .filter(Boolean)
     .map(x => parseFloat(x));
 
-export const setViewBox = (d: string, o: Box, t: Box): string =>
-  splitCommand(d)
+const splitDot = (text: string) => {
+  const t = text.replace(/(\d*)\.(\d*)\./, (_, a, b) => `${a}.${b} .`);
+
+  if (t === text) return text;
+
+  return splitDot(t);
+};
+
+export const setViewBox = (d: string, o: Box, t: Box): string => {
+  // debugger;
+
+  const commands = splitCommand(d)
+    .map(({ command, params }) => unGroupCommand(command, params))
+    .flat();
+
+  return commands
     .map(
       ({ command, params }) =>
         command +
-        getTransformsForCommand(command, params.length)
+        getTransformsForCommand(command)
           .map((tr, i) => tr(o, t)(params[i]))
           .map(round)
           .join(" ")
     )
     .join("\n");
+};
