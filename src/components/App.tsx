@@ -27,9 +27,14 @@ export const App = () => {
 
   const [targetPathS, setTargetPathS] = useState(targetPath);
   useEffect(() => {
-    if (minify) minifyPath(targetPath).then(setTargetPathS);
+    const box = parseViewBox(targetViewbox);
+    const floatPrecision = Math.max(
+      0,
+      2 - Math.round(Math.log(Math.min(box.width, box.height)) / Math.log(10))
+    );
+    if (minify) minifyPath(targetPath, { floatPrecision }).then(setTargetPathS);
     else setTargetPathS(targetPath);
-  }, [targetPath, minify]);
+  }, [targetPath, minify, targetViewbox]);
 
   return (
     <Container>
@@ -40,12 +45,12 @@ export const App = () => {
         <Input
           type="text"
           value={originViewbox}
-          onChange={e => setOriginViewbox(e.target.value)}
+          onChange={(e) => setOriginViewbox(e.target.value)}
           placeholder="original viewBox"
         />
         <LargeInput
           value={originPath}
-          onChange={e => setOriginPath(e.target.value)}
+          onChange={(e) => setOriginPath(e.target.value)}
           placeholder="original path"
         />
       </Box>
@@ -57,19 +62,19 @@ export const App = () => {
         <Input
           type="text"
           value={targetViewbox}
-          onChange={e => setTargetViewbox(e.target.value)}
+          onChange={(e) => setTargetViewbox(e.target.value)}
           placeholder="target viewBox"
         />
         <LargeInput
           value={targetPathS}
-          onFocus={e => e.target.focus()}
+          onFocus={(e) => e.target.focus()}
           placeholder="result path"
           readOnly
         />
 
         <div>
-          <Checkbox value={minify} onChange={setMinify} />{" "}
-          <label>minify with svgo</label>
+          <Checkbox id="minify-with-svgo" value={minify} onChange={setMinify} />{" "}
+          <label htmlFor="minify-with-svgo">minify with svgo</label>
         </div>
       </Box>
     </Container>
