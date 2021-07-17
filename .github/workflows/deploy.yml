@@ -8,14 +8,14 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout
+      - uses: actions/setup-node
         with:
           node-version: 12
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - run: cp .build/index.html .build/404.html
-      - uses: crazy-max/ghaction-github-pages@068e494
+      - uses: crazy-max/ghaction-github-pages
         with:
           target_branch: gh-pages
           build_dir: .build
