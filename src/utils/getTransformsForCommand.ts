@@ -10,7 +10,7 @@ const commandArity = {
   q: 4,
   s: 4,
   c: 6,
-  a: 7
+  a: 7,
 };
 
 /**
@@ -53,11 +53,11 @@ export const getTransformsForCommand = (command: string) => {
  */
 const absolute = {
   x: (o: Box, t: Box) => (x: number) => ((x - o.x) * t.width) / o.width + t.x,
-  y: (o: Box, t: Box) => (y: number) => ((y - o.y) * t.height) / o.height + t.y
+  y: (o: Box, t: Box) => (y: number) => ((y - o.y) * t.height) / o.height + t.y,
 };
 const relative = {
   x: (o: Box, t: Box) => (x: number) => (x * t.width) / o.width,
-  y: (o: Box, t: Box) => (y: number) => (y * t.height) / o.height
+  y: (o: Box, t: Box) => (y: number) => (y * t.height) / o.height,
 };
 const pass = () => (x: number) => x;
 
@@ -77,9 +77,9 @@ export const unGroupCommand = (command: string, params: number[]) => {
   if (!arity) return [];
 
   return Array.from({
-    length: Math.floor(params.length / arity)
+    length: Math.floor(params.length / arity),
   }).map((_, i) => ({
     command,
-    params: params.slice(i * arity, (i + 1) * arity)
+    params: params.slice(i * arity, (i + 1) * arity),
   }));
 };

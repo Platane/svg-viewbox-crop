@@ -8,19 +8,19 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 // @ts-ignore
 const pkg = require("../package.json");
 
-const createConfig = mode => ({
+const createConfig = (mode) => ({
   mode,
   entry: {
-    main: path.resolve(__dirname, "../src/bootstrap.ts")
+    main: path.resolve(__dirname, "../src/bootstrap.ts"),
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"]
+    extensions: [".tsx", ".ts", ".js"],
   },
   output: {
     filename: "[name].[contenthash].js",
     chunkFilename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "../.build"),
-    publicPath: mode === "production" ? "/svg-viewbox-crop/" : "/"
+    publicPath: mode === "production" ? "/svg-viewbox-crop/" : "/",
   },
   module: {
     rules: [
@@ -28,12 +28,12 @@ const createConfig = mode => ({
         exclude: /node_modules/,
         test: /\.(js)|(tsx?)$/,
         loader: "babel-loader",
-        options: { rootMode: "upward" }
-      }
-    ]
+        options: { rootMode: "upward" },
+      },
+    ],
   },
   node: {
-    fs: "empty"
+    fs: "empty",
   },
 
   plugins: [
@@ -45,7 +45,7 @@ const createConfig = mode => ({
       title: pkg.name,
       hash: true,
       meta: {
-        viewport: "width=device-width, initial-scale=1, shrink-to-fit=no"
+        viewport: "width=device-width, initial-scale=1, shrink-to-fit=no",
       },
       minify: mode === "production" && {
         collapseWhitespace: true,
@@ -53,8 +53,8 @@ const createConfig = mode => ({
         removeRedundantAttributes: true,
         removeScriptTypeAttributes: true,
         removeStyleLinkTypeAttributes: true,
-        useShortDoctype: true
-      }
+        useShortDoctype: true,
+      },
     }),
 
     new AppManifestWebpackPlugin({
@@ -81,10 +81,10 @@ const createConfig = mode => ({
           yandex: false,
           windows: false,
           appleStartup: false,
-          coast: false
-        }
-      }
-    })
+          coast: false,
+        },
+      },
+    }),
   ].filter(Boolean),
 
   devtool: mode === "production" ? "source-map" : false,
@@ -94,15 +94,15 @@ const createConfig = mode => ({
    */
   performance: {
     maxEntrypointSize: 10000000,
-    maxAssetSize: 10000000
+    maxAssetSize: 10000000,
   },
 
   devServer: {
     historyApiFallback: {
-      rewrites: [{ from: /./, to: "/index.html" }]
+      rewrites: [{ from: /./, to: "/index.html" }],
     },
-    stats: "errors-only"
-  }
+    stats: "errors-only",
+  },
 });
 
 module.exports = createConfig(process.env.NODE_ENV || "development");

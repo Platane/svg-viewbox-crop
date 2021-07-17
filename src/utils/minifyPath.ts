@@ -19,7 +19,7 @@ export const minifyPath = async (d: string, options: Options = {}) => {
           applyTransformsStroked: true,
           makeArcs: {
             threshold: 2.5, // coefficient of rounding error
-            tolerance: 0.5 // percentage of radius
+            tolerance: 0.5, // percentage of radius
           },
           straightCurves: true,
           lineShorthands: true,
@@ -33,8 +33,8 @@ export const minifyPath = async (d: string, options: Options = {}) => {
           negativeExtraSpace: true,
           noSpaceAfterFlags: true,
           forceAbsolutePath: false,
-          ...options
-        }
+          ...options,
+        },
       },
       { cleanupAttrs: false },
       { removeDoctype: false },
@@ -68,8 +68,8 @@ export const minifyPath = async (d: string, options: Options = {}) => {
       { convertShapeToPath: false },
       { sortAttrs: false },
       { removeDimensions: false },
-      { removeAttrs: false }
-    ]
+      { removeAttrs: false },
+    ],
   });
 
   const { data } = await svgo.optimize(html);

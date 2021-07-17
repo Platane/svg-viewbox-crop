@@ -1,4 +1,4 @@
-const fromEntriesPolyfill = iterable =>
+const fromEntriesPolyfill = (iterable) =>
   Object.assign({}, ...[...iterable].map(([key, val]) => ({ [key]: val })));
 
 // @ts-ignore

@@ -9,7 +9,7 @@ const matchAll = (re: RegExp, text: string) => {
   return res;
 };
 
-const matchAllPolyfill = function(re: RegExp) {
+const matchAllPolyfill = function (re: RegExp) {
   return matchAll(re, this);
 };
 

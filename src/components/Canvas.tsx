@@ -9,7 +9,7 @@ export const Canvas = ({ viewBox, viewBox2, path, ...props }) => {
     x: box.x - box.width * 0.1,
     y: box.y - box.height * 0.1,
     width: box.width * 1.2,
-    height: box.height * 1.2
+    height: box.height * 1.2,
   };
 
   return (

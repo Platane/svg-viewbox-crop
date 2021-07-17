@@ -1,4 +1,4 @@
-const getConfig = env => {
+const getConfig = (env) => {
   const plugins = [];
 
   const presets = [
@@ -6,7 +6,7 @@ const getConfig = env => {
 
     "@babel/preset-typescript",
 
-    "@babel/preset-react"
+    "@babel/preset-react",
   ];
 
   if (env === "test") {
@@ -16,6 +16,6 @@ const getConfig = env => {
   return { plugins, presets };
 };
 
-module.exports = api => getConfig(api.env());
+module.exports = (api) => getConfig(api.env());
 
 module.exports.getConfig = getConfig;

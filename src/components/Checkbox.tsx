@@ -6,7 +6,7 @@ export const Checkbox = ({ value, onChange, ...props }) => (
     {...props}
     type="checkbox"
     checked={!!value}
-    onChange={e => onChange(e.target.checked)}
+    onChange={(e) => onChange(e.target.checked)}
   />
 );
 
