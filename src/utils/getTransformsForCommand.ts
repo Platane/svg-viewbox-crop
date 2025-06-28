@@ -49,7 +49,7 @@ export const getTransformsForCommand = (command: string) => {
 };
 
 /**
- * collection of transfom fn
+ * collection of transform fn
  */
 const absolute = {
   x: (o: Box, t: Box) => (x: number) => ((x - o.x) * t.width) / o.width + t.x,
@@ -70,7 +70,8 @@ const pass = () => (x: number) => x;
  * ungroup
  */
 export const unGroupCommand = (command: string, params: number[]) => {
-  const arity = commandArity[command.toLowerCase()];
+  const arity =
+    commandArity[command.toLowerCase() as keyof typeof commandArity];
 
   if (arity === 0) return [{ command, params: [] }];
 

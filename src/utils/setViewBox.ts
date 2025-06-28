@@ -4,7 +4,7 @@ import {
   unGroupCommand,
 } from "./getTransformsForCommand";
 
-const round = (x) => Math.round(x * 10000) / 10000;
+const round = (x: number) => Math.round(x * 10000) / 10000;
 
 export const parseViewBox = (vb: string): Box => {
   const [x = 0, y = 0, width = 1, height = 1] = splitNumberParam(vb);
